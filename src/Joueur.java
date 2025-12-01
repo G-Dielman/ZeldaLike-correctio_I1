@@ -1,4 +1,5 @@
 import javafx.scene.Group;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
@@ -6,6 +7,19 @@ import javafx.scene.shape.Rectangle;
 
 public class Joueur {
 
+    //Attributs
+    private  double width =80, height =20;
+    private Group token;
+    public int vitesse = 3;
+
+    //constructeur
+    public Joueur(double x, double y){
+        this.token =createTopDownLink(1);
+        this.setX(x);
+        this.setY(y);
+    }
+
+    //accesseurs
     public double getHeight() {
         return height;
     }
@@ -14,35 +28,28 @@ public class Joueur {
         return width;
     }
 
-    private  double width =80, height =20;
-    private Group token;
-
-    public int vitesse = 3;
-
-
-    public Joueur(){
-        this.token =createTopDownLink(1);
-    }
-
-    public Group getToken(){
-        return token;
-    }
     public double getX(){
         return this.token.getLayoutX();
     }
-    public double getY(){
-        return this.token.getLayoutY();
-    }
-
     public void setX(double x){
         this.token.setLayoutX(x);
+    }
+
+    public double getY(){
+        return this.token.getLayoutY();
     }
     public void setY(double y){
         this.token.setLayoutY(y);
     }
 
-    public void setRotation(int r){
+    public double getRotation(){return this.token.getRotate();}
+    public void setRotation(double r){
         this.token.setRotate(r);
+    }
+
+
+    public void setInPane(Pane pane){
+        pane.getChildren().add(this.token);
     }
     private Group createTopDownLink(double scale) {
 
@@ -59,7 +66,7 @@ public class Joueur {
         return g;
     }
 
-    public void deplacer(double dx, double dy, int rot){
+    public void deplacer(double dx, double dy, double rot){
         this.setX( this.getX() + dx );
         this.setY( this.getY() + dy );
         this.setRotation( rot );
